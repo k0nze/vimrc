@@ -1,3 +1,3 @@
-konze's konze's vimrc
+konze's .vimrc
 =====
 If you like it, use it ;)
