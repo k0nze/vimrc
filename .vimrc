@@ -134,9 +134,12 @@ highlight ColorColumn ctermbg=233
 
 " tex commands
 "" build and show pdf
-"autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :!PDF=%<.pdf && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
 
+
+" commands for bash development
+"" run bash script
+auto BufReadPost,BufWritePost *.sh nmap <Leader>b :! ./%<CR>
 
 " tell vim to remember certain things when we exit
 "" '10  :  marks will be remembered for up to 10 previously edited files
