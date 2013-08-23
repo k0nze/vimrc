@@ -134,8 +134,8 @@ highlight ColorColumn ctermbg=233
 
 " tex commands
 "" build and show pdf
-"autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :!"/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode %<CR>
-"autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :!TEMP=% && PDF=${TEMP:0: ${#TEMP}-4 } && echo $TEMP && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode % && open $PDF && unset TEMP PDF<CR>
+"autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :!PDF=%<.pdf && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
 
 
 " tell vim to remember certain things when we exit
