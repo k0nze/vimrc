@@ -141,6 +141,19 @@ autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviromen
 "" run bash script
 auto BufReadPost,BufWritePost *.sh nmap <Leader>b :w<CR>:!./"%" <CR>
 
+
+" commands for omnicompletion
+"" open preview with ctrl space
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+            \ "\<lt>C-n>" :
+            \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+            \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+            \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
+"" close preview when exit the insert mode
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+
 " tell vim to remember certain things when we exit
 "" '10  :  marks will be remembered for up to 10 previously edited files
 ""  "100 :  will save up to 100 lines for each register
