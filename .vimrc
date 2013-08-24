@@ -134,8 +134,8 @@ highlight ColorColumn ctermbg=233
 
 " tex commands
 "" build and show pdf
-autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR><CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
-
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR><CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviroment" && find . \| grep -vE "(^..$)\|(^.$)\|(.tex$)" \| xargs rm<CR><CR>
 
 " commands for bash development
 "" run bash script
