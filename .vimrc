@@ -134,13 +134,17 @@ highlight ColorColumn ctermbg=233
 
 " tex commands
 "" build and show pdf
-autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR><CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviroment" && find . \| grep -vE "(^..$)\|(^.$)\|(.tex$)" \| xargs rm<CR><CR>
 
 " commands for bash development
 "" run bash script
 auto BufReadPost,BufWritePost *.sh nmap <Leader>b :w<CR>:!./"%" <CR>
 
+" commands for cpp development
+"" make (all)
+auto BufReadPost,BufWritePost *.cpp,*.h nmap <Leader>b :w<CR>:make<CR>
+auto BufReadPost,BufWritePost *.cpp,*.h nmap <Leader>c :w<CR>:make clean<CR><CR>
 
 " commands for omnicompletion
 "" open preview with ctrl space
@@ -151,8 +155,8 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
             \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
 "" close preview when exit the insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 
 " tell vim to remember certain things when we exit
