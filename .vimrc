@@ -137,6 +137,10 @@ highlight ColorColumn ctermbg=233
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviroment" && find . \| grep -vE "(^..$)\|(^.$)\|(.tex$)" \| xargs rm<CR><CR>
 
+"" word wrap
+autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist 
+
+
 " commands for bash development
 "" run bash script
 auto BufReadPost,BufWritePost *.sh nmap <Leader>b :w<CR>:!./"%" <CR>
