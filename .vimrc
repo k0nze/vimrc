@@ -131,6 +131,10 @@ set colorcolumn=80
 "" color of color column (dark grey)
 highlight ColorColumn ctermbg=233
 
+" JSON[iq]
+"" set JSON syntax highlighting for *.jq. *.jqy
+autocmd BufNewFile,BufReadPost *.jq set syntax=javascript
+autocmd BufNewFile,BufReadPost *.jqy set syntax=javascript
 
 " tex commands
 "" build and show pdf
