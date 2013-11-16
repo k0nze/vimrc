@@ -70,6 +70,11 @@ vnoremap < <gv
 vnoremap > >gv
 
 
+" indentation
+set autoindent
+set cindent
+
+
 " tabstop settings
 "" smart indent
 set smartindent
@@ -131,10 +136,17 @@ set colorcolumn=80
 "" color of color column (dark grey)
 highlight ColorColumn ctermbg=233
 
+" HTML
+"" indentation
+autocmd FileType html setlocal indentkeys-=*<Return>
+
 " JSON[iq]
 "" set JSON syntax highlighting for *.jq. *.jqy
 autocmd BufNewFile,BufReadPost *.jq set syntax=javascript
 autocmd BufNewFile,BufReadPost *.jqy set syntax=javascript
+
+" word wrap for *.txt
+autocmd BufReadPost,BufWritePost *.txt set wrap linebreak nolist 
 
 " tex commands
 "" build and show pdf
@@ -154,18 +166,23 @@ auto BufReadPost,BufWritePost *.sh nmap <Leader>b :w<CR>:!./"%" <CR>
 auto BufReadPost,BufWritePost *.cpp,*.h nmap <Leader>b :w<CR>:make<CR>
 auto BufReadPost,BufWritePost *.cpp,*.h nmap <Leader>c :w<CR>:make clean<CR><CR>
 
-" commands for omnicompletion
-"" open preview with ctrl space
-inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-            \ "\<lt>C-n>" :
-            \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-            \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-            \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-imap <C-@> <C-Space>
-"" close preview when exit the insert mode
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
+function! Auto_complete_string()
+    if pumvisible()
+        return "\<C-n>"
+    else
+        return "\<C-x>\<C-o>\<C-r>=Auto_complete_opened()\<CR>"
+    end
+endfunction
+                                    
+function! Auto_complete_opened()
+    if pumvisible()
+        return "\<Down>"
+    end
+    return ""
+endfunction
+                                                            
+inoremap <expr> <Nul> Auto_complete_string()
+inoremap <expr> <C-Space> Auto_complete_string()
 
 " tell vim to remember certain things when we exit
 "" '10  :  marks will be remembered for up to 10 previously edited files
