@@ -88,8 +88,8 @@ set expandtab
 
 " show trailing white space
 "" MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
+"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+"au InsertLeave * match ExtraWhitespace /\s\+$/
 
 
 " color scheme
@@ -100,7 +100,7 @@ color wombat256mod
 
 
 " enable syntax highlighting
-filetype off
+"filetype off
 filetype plugin indent on
 syntax on
 
@@ -148,10 +148,11 @@ autocmd BufNewFile,BufReadPost *.jqy set syntax=javascript
 " word wrap for *.txt
 autocmd BufReadPost,BufWritePost *.txt set wrap linebreak nolist 
 
-" tex commands
+" settings an commands for tex
 "" build and show pdf
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviroment" && find . \| grep -vE "(^..$)\|(^.$)\|(.tex$)" \| xargs rm<CR><CR>
+autocmd BufReadPost,BufWritePost *.tex set omnifunc=LatexBox_Complete
 
 "" word wrap
 autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist 
@@ -183,6 +184,8 @@ endfunction
                                                             
 inoremap <expr> <Nul> Auto_complete_string()
 inoremap <expr> <C-Space> Auto_complete_string()
+
+set omnifunc=syntaxcomplete#Complete
 
 " tell vim to remember certain things when we exit
 "" '10  :  marks will be remembered for up to 10 previously edited files
