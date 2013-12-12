@@ -153,6 +153,9 @@ autocmd BufReadPost,BufWritePost *.txt set wrap linebreak nolist
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviroment" && find . \| grep -vE "(^..$)\|(^.$)\|(.tex$)" \| xargs rm<CR><CR>
 autocmd BufReadPost,BufWritePost *.tex set omnifunc=LatexBox_Complete
+let g:LatexBox_complete_inlineMath = 1
+let g:syntastic_mode_map = {'passive_filetypes': ['tex'] }
+
 
 "" word wrap
 autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist 
