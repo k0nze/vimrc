@@ -103,20 +103,14 @@ syntax enable
 " color scheme
 "" mkdir -p ~/.vim/colors && cd ~/.vim/colors
 "" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-"set t_Co=256
-"color wombat256mod
-set background=dark
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-let g:solarized_termcolors=256
-let g:solarized_termtrans = 1
-colorscheme solarized
+set t_Co=256
+color wombat256mod
+"set background=dark
+"colorscheme solarized
 
 " enable line number
 set number
-hi LineNr ctermfg=Cyan ctermbg=DarkGrey
-
-
+"hi LineNr ctermfg=Cyan ctermbg=DarkGrey
 
 " code folding
 "" fold based on indent
@@ -153,6 +147,8 @@ highlight ColorColumn ctermbg=233
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
 au BufEnter *.hs compiler ghc
+au BufEnter *.hs hi Normal ctermfg=186
+
 
 " HTML
 "" indentation
