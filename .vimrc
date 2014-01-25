@@ -1,13 +1,16 @@
 " automatic reload .vimrc
 autocmd! bufwritepost .vimrc source %
 
+" pathogen to manage plugins
+"" mkdir -p ~/.vim/autoload ~/.vim/bundle
+"" curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
+"" to install a new plugin, just into .vim/bundle/PLUGIN_NAME
+call pathogen#infect()
+
 
 " rebind <Leader> key
 let mapleader = ","
 
-
-" enable line number
-set number
 
 
 " enable mouse
@@ -91,18 +94,28 @@ set expandtab
 "autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 "au InsertLeave * match ExtraWhitespace /\s\+$/
 
+" enable syntax highlighting
+"filetype off
+filetype plugin indent on
+syntax enable
+
 
 " color scheme
 "" mkdir -p ~/.vim/colors && cd ~/.vim/colors
 "" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-set t_Co=256
-color wombat256mod
+"set t_Co=256
+"color wombat256mod
+set background=dark
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+let g:solarized_termcolors=256
+let g:solarized_termtrans = 1
+colorscheme solarized
 
+" enable line number
+set number
+hi LineNr ctermfg=Cyan ctermbg=DarkGrey
 
-" enable syntax highlighting
-"filetype off
-filetype plugin indent on
-syntax on
 
 
 " code folding
@@ -136,6 +149,11 @@ set colorcolumn=80
 "" color of color column (dark grey)
 highlight ColorColumn ctermbg=233
 
+" haskell
+let g:haddock_browser = "open"
+let g:haddock_browser_callformat = "%s %s"
+au BufEnter *.hs compiler ghc
+
 " HTML
 "" indentation
 autocmd FileType html setlocal indentkeys-=*<Return>
@@ -156,10 +174,12 @@ autocmd BufReadPost,BufWritePost *.tex set omnifunc=LatexBox_Complete
 let g:LatexBox_complete_inlineMath = 1
 let g:syntastic_mode_map = {'passive_filetypes': ['tex'] }
 
-
 "" word wrap
 autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist 
 
+
+" sql commands
+inoremap <C-c> <ESC>
 
 " commands for bash development
 "" run bash script
@@ -185,8 +205,15 @@ function! Auto_complete_opened()
     return ""
 endfunction
                                                             
-inoremap <expr> <Nul> Auto_complete_string()
-inoremap <expr> <C-Space> Auto_complete_string()
+"inoremap <expr> <Nul> Auto_complete_string()
+"inoremap <expr> <C-Space> Auto_complete_string()
+
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+            \ "\<lt>C-n>" :
+            \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+            \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+            \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
 
 set omnifunc=syntaxcomplete#Complete
 
@@ -211,11 +238,6 @@ augroup resCur
 augroup END
 
 
-" pathogen to manage plugins
-"" mkdir -p ~/.vim/autoload ~/.vim/bundle
-"" curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
-"" to install a new plugin, just into .vim/bundle/PLUGIN_NAME
-call pathogen#infect()
 
 
 " plugin vim-powerline
