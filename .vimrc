@@ -174,6 +174,11 @@ let g:syntastic_mode_map = {'passive_filetypes': ['tex'] }
 autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist 
 
 
+" settings for R
+"" run R script
+autocmd BufReadPost,BufWritePost *.R nmap <Leader>b :w<CR>:!R --no-save < %<CR>
+
+
 " sql commands
 inoremap <C-c> <ESC>
 
