@@ -159,13 +159,18 @@ autocmd FileType html setlocal indentkeys-=*<Return>
 autocmd BufNewFile,BufReadPost *.jq set syntax=javascript
 autocmd BufNewFile,BufReadPost *.jqy set syntax=javascript
 
+" LISA
+"" set C syntax hightlight for *.lisa
+autocmd BufNewFile,BufReadPost *.lisa set syntax=lisa
+
 " word wrap for *.txt
 autocmd BufReadPost,BufWritePost *.txt set wrap linebreak nolist 
 
 " settings an commands for tex
 "" build and show pdf
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
-autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviroment" && find . \| grep -vE "(^..$)\|(^.$)\|(.tex$)" \| xargs rm<CR><CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>v :w<CR>:!PDF="%<.pdf" && "/usr/texbin/xelatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
+"autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviroment" && find . \| grep -vE "(^..$)\|(^.$)\|(.tex$)" \| xargs rm<CR><CR>
 autocmd BufReadPost,BufWritePost *.tex set omnifunc=LatexBox_Complete
 let g:LatexBox_complete_inlineMath = 1
 let g:syntastic_mode_map = {'passive_filetypes': ['tex'] }
@@ -178,9 +183,12 @@ autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist
 "" run R script
 autocmd BufReadPost,BufWritePost *.R nmap <Leader>b :w<CR>:!R --no-save < %<CR>
 
+"" no word wrap
+autocmd BufReadPost,BufWritePost *.R set nowrap
+
 
 " sql commands
-inoremap <C-c> <ESC>
+" inoremap <C-c> <ESC>
 
 " commands for bash development
 "" run bash script
