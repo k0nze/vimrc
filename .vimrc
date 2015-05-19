@@ -170,10 +170,16 @@ autocmd BufReadPost,BufWritePost *.txt set wrap linebreak nolist
 "" build and show pdf
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>v :w<CR>:!PDF="%<.pdf" && "/usr/texbin/xelatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
-"autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :!echo "cleaning enviroment" && find . \| grep -vE "(^..$)\|(^.$)\|(.tex$)" \| xargs rm<CR><CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :w<CR>:!PDF="%<.pdf" && make && open "$PDF" && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex set omnifunc=LatexBox_Complete
 let g:LatexBox_complete_inlineMath = 1
 let g:syntastic_mode_map = {'passive_filetypes': ['tex'] }
+
+" bachelorarbeit
+autocmd BufReadPost,BufWritePost bachelorarbeit.tex nmap <Leader>v :set noignorecase<CR>:%s/ä/"a/g<CR>:%s/ö/"o/g<CR>:%s/ü/"u/g<CR>:%s/Ä/"A/g<CR>:%s/Ö/"O/g<CR>:%s/Ü/"U/g<CR>:%s/ß/\\ss/g<CR>:w<CR>:set ignorecase<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
+autocmd BufReadPost,BufWritePost bachelorarbeit.tex nmap <Leader>c :set noignorecase<CR>:%s/ä/"a/g<CR>:%s/ö/"o/g<CR>:%s/ü/"u/g<CR>:%s/Ä/"A/g<CR>:%s/Ö/"O/g<CR>:%s/Ü/"U/g<CR>:%s/ß/\\ss/g<CR>:w<CR>:set ignorecase<CR>:!PDF="%<.pdf" && make && open "$PDF" && unset PDF<CR>
+
+"autocmd BufReadPost,BufWritePost bachelorarbeit.tex nmap <Leader>c :w<CR>:%s/ü/"u/g | !PDF="%<.pdf" && make && open "$PDF" && unset PDF<CR>
 
 "" word wrap
 autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist 
