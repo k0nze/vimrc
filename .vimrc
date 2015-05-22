@@ -163,6 +163,11 @@ autocmd BufNewFile,BufReadPost *.jqy set syntax=javascript
 "" set C syntax hightlight for *.lisa
 autocmd BufNewFile,BufReadPost *.lisa set syntax=lisa
 
+" Verilog
+"" abbreviation for block comment
+"iab /*--- /* -------------------------------------------------------------------------<Esc>:set paste<CR>m`o<Esc>``:set nopaste<CR>i
+iab /*--- /* -------------------------------------------------------------------------<Esc>:set paste<CR>m`o *<Esc>m`o * ------------------------------------------------------------------------- */<Esc>:set nopaste<Esc>ka
+
 " word wrap for *.txt
 autocmd BufReadPost,BufWritePost *.txt set wrap linebreak nolist 
 
@@ -176,8 +181,8 @@ let g:LatexBox_complete_inlineMath = 1
 let g:syntastic_mode_map = {'passive_filetypes': ['tex'] }
 
 " bachelorarbeit
-autocmd BufReadPost,BufWritePost bachelorarbeit.tex nmap <Leader>v :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss/ge<CR>:w<CR>:set ignorecase<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
-autocmd BufReadPost,BufWritePost bachelorarbeit.tex nmap <Leader>c :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss/ge<CR>:w<CR>:set ignorecase<CR>:!PDF="%<.pdf" && make && open "$PDF" && unset PDF<CR>
+autocmd BufReadPost,BufWritePost {bachelorarbeit,sec*}.tex nmap <Leader>v :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss/ge<CR>:w<CR>:set ignorecase<CR>:!"/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode bachelorarbeit && open bachelorarbeit.pdf && unset PDF<CR>
+autocmd BufReadPost,BufWritePost {bachelorarbeit,sec*}.tex nmap <Leader>c :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss/ge<CR>:w<CR>:set ignorecase<CR>:!PDF="%<.pdf" && make && open bachelorarbeit.pdf && unset PDF<CR>
 
 "autocmd BufReadPost,BufWritePost bachelorarbeit.tex nmap <Leader>c :w<CR>:%s/ü/"u/g | !PDF="%<.pdf" && make && open "$PDF" && unset PDF<CR>
 
