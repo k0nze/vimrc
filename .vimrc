@@ -1,16 +1,56 @@
 " automatic reload .vimrc
 autocmd! bufwritepost .vimrc source %
 
-" pathogen to manage plugins
-"" mkdir -p ~/.vim/autoload ~/.vim/bundle
-"" curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
-"" to install a new plugin, just into .vim/bundle/PLUGIN_NAME
-call pathogen#infect()
+" VBundle
+set nocompatible 
+filetype off 
+
+"" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+"" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+"" plugins on GitHub repo
+Plugin 'scrooloose/syntastic'
+
+" plugin vim-powerline git://github.com/Lokaltog/vim-powerline.git
+Plugin 'Lokaltog/vim-powerline'
+set laststatus=2
+"let g:Powerline_symbols = 'fancy'
+
+" plugin ctrlp (https://github.com/kien/ctrlp.vim)
+Plugin 'kien/ctrlp.vim'
+let g:ctrlp_max_height = 10
+
+" plugin LaTeX-Box
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+
+" plugin phpcomplete
+"" cd ~/.vim/bundle
+"" git clone git://github.com/shawncplus/phpcomplete.vim.git
+Plugin 'shawncplus/phpcomplete.vim'
+"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+
+"" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+"" To ignore plugin indent changes, instead use:
+""filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 
 " rebind <Leader> key
 let mapleader = ","
-
 
 
 " enable mouse
@@ -54,6 +94,12 @@ nmap <Leader>n :tabprevious<CR>
 "" switch to right tab
 nmap <Leader>m :tabnext<CR>
 
+
+" ctags
+"" this will open the file where the keyword under the cursor is defined
+nmap <Leader>d <Leader>ulbye:10sp<CR>:tag <C-R>"<CR>
+"" update tags file
+nmap <Leader>u :let &tags=system('${HOME}/.vimrc.d/update_ctags.sh')<CR>:echo "tags was set to"&tags<CR>
 
 " split
 "" split horizontally
@@ -208,7 +254,6 @@ auto BufReadPost,BufWritePost *.sh nmap <Leader>b :w<CR>:!./"%" <CR>
 " commands for cpp development
 "" make (all)
 auto BufReadPost,BufWritePost *.cpp,*.h nmap <Leader>b :w<CR>:make<CR>
-auto BufReadPost,BufWritePost *.cpp,*.h nmap <Leader>c :w<CR>:make clean<CR><CR>
 
 function! Auto_complete_string()
     if pumvisible()
@@ -226,7 +271,7 @@ function! Auto_complete_opened()
 endfunction
                                                             
 "inoremap <expr> <Nul> Auto_complete_string()
-"inoremap <expr> <C-Space> Auto_complete_string()
+inoremap <expr> <C-Space> Auto_complete_string()
 
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
             \ "\<lt>C-n>" :
@@ -235,12 +280,13 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
             \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
 
-set omnifunc=syntaxcomplete#Complete
+set completeopt=longest,menuone
+"set omnifunc=syntaxcomplete#Complete
 
 " tell vim to remember certain things when we exit
 "" '10  :  marks will be remembered for up to 10 previously edited files
 ""  "100 :  will save up to 100 lines for each register
-""  :20  :  up to 20 lines of command-line history will be remembered
+""  :200 :  up to 20 lines of command-line history will be remembered
 ""  %    :  saves and restores the buffer list
 ""  n... :  where to save the viminfo files
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -257,22 +303,3 @@ augroup resCur
 	autocmd BufWinEnter * call ResCur()
 augroup END
 
-
-
-
-" plugin vim-powerline
-"" cd ~/.vim/bundle
-"" git clone git://github.com/Lokaltog/vim-powerline.git
-set laststatus=2
-"let g:Powerline_symbols = 'fancy'
-
-
-" plugin syntastic (syntax checker)
-"" cd ~/.vim/bundle
-"" git clone https://github.com/scrooloose/syntastic.git
-
-
-" plugin ctrlp
-"" cd ~/.vim/bundle
-"" git clone https://github.com/kien/ctrlp.vim.git
-let g:ctrlp_max_height = 10
