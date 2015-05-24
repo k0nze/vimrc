@@ -143,14 +143,16 @@ set expandtab
 " enable syntax highlighting
 "filetype off
 filetype plugin indent on
-syntax enable
+syntax on
 
 
 " color scheme
 "" mkdir -p ~/.vim/colors && cd ~/.vim/colors
 "" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
 set t_Co=256
-color wombat256mod
+color smyck
+"color wombat256mod
+"colorscheme candystripe
 "set background=dark
 "colorscheme solarized
 
