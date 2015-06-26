@@ -214,29 +214,35 @@ autocmd BufNewFile,BufReadPost *.lisa set syntax=lisa
 " Verilog
 "" abbreviation for block comment
 "iab /*--- /* -------------------------------------------------------------------------<Esc>:set paste<CR>m`o<Esc>``:set nopaste<CR>i
-iab /*--- /* -------------------------------------------------------------------------<Esc>:set paste<CR>m`o *<Esc>m`o * ------------------------------------------------------------------------- */<Esc>:set nopaste<Esc>ka
+autocmd BufNewFile,BufReadPost *.v iab /*--- /* -------------------------------------------------------------------------<Esc>:set paste<CR>m`o *<Esc>m`o * ------------------------------------------------------------------------- */<Esc>:set nopaste<Esc>ka
 
 " word wrap for *.txt
 autocmd BufReadPost,BufWritePost *.txt set wrap linebreak nolist 
 
 " settings an commands for tex
 "" build and show pdf
-autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
-autocmd BufReadPost,BufWritePost *.tex nmap <Leader>v :w<CR>:!PDF="%<.pdf" && "/usr/texbin/xelatex" -synctex=1 -interaction=nonstopmode "%" && open "$PDF" && unset PDF<CR>
-autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :w<CR>:!PDF="%<.pdf" && make && open "$PDF" && unset PDF<CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && unset PDF<CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>v :w<CR>:!PDF="%<.pdf" && "/usr/texbin/xelatex" -synctex=1 -interaction=nonstopmode "%" && unset PDF<CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :w<CR>:!PDF="%<.pdf" && make && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex set omnifunc=LatexBox_Complete
 let g:LatexBox_complete_inlineMath = 1
 let g:syntastic_mode_map = {'passive_filetypes': ['tex'] }
 
-" bachelorarbeit
-autocmd BufReadPost,BufWritePost {bachelorarbeit,sec*}.tex nmap <Leader>v :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss/ge<CR>:w<CR>:set ignorecase<CR>:!"/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode bachelorarbeit && open bachelorarbeit.pdf && unset PDF<CR>
-autocmd BufReadPost,BufWritePost {bachelorarbeit,sec*}.tex nmap <Leader>c :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss/ge<CR>:w<CR>:set ignorecase<CR>:!PDF="%<.pdf" && make && open bachelorarbeit.pdf && unset PDF<CR>
+autocmd BufNewFile,BufReadPost *.tex iab \begin{tabular} \begin{tabular}{•}<Esc>m`o\end{tabular}<Esc>k$a
+autocmd BufNewFile,BufReadPost *.tex iab \begin{center} \begin{center}<Esc>m`o\end{center}<Esc>k$a
+autocmd BufNewFile,BufReadPost *.tex iab \begin{itemize} \begin{itemize}<Esc>m`o\end{itemize}<Esc>k$a
+autocmd BufNewFile,BufReadPost *.tex iab \begin{enumerate} \begin{enumerate}<Esc>m`o\end{enumerate}<Esc>k$a
 
-"autocmd BufReadPost,BufWritePost bachelorarbeit.tex nmap <Leader>c :w<CR>:%s/ü/"u/g | !PDF="%<.pdf" && make && open "$PDF" && unset PDF<CR>
+
+" bachelorarbeit
+autocmd BufReadPost,BufWritePost {bachelorarbeit,sec*}.tex nmap <Leader>v :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss /ge<CR>:w<CR>:set ignorecase<CR>:!"/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode bachelorarbeit<CR>
+autocmd BufReadPost,BufWritePost {bachelorarbeit,sec*}.tex nmap <Leader>c :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss /ge<CR>:w<CR>:set ignorecase<CR>:!make<CR>
 
 "" word wrap
 autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist 
 
+" word wrap for *.md
+autocmd BufReadPost,BufWritePost *.md set wrap linebreak nolist 
 
 " settings for R
 "" run R script
