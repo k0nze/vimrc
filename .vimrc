@@ -1,6 +1,9 @@
 " automatic reload .vimrc
 autocmd! bufwritepost .vimrc source %
 
+" enable mouse
+set mouse=a
+
 " VBundle
 set nocompatible 
 filetype off 
@@ -52,9 +55,6 @@ filetype plugin indent on    " required
 " rebind <Leader> key
 let mapleader = ","
 
-
-" enable mouse
-set mouse=a
 
 
 " change backspace behavoir
@@ -149,12 +149,13 @@ syntax on
 " color scheme
 "" mkdir -p ~/.vim/colors && cd ~/.vim/colors
 "" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-set t_Co=256
-color smyck
+"set t_Co=256
+let g:solarized_termcolors=256
+"color smyck
 "color wombat256mod
 "colorscheme candystripe
-"set background=dark
-"colorscheme solarized
+set background=dark
+colorscheme solarized
 
 " enable line number
 set number
@@ -243,6 +244,14 @@ autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist
 
 " word wrap for *.md
 autocmd BufReadPost,BufWritePost *.md set wrap linebreak nolist 
+autocmd BufReadPost,BufWritePost *.md set textwidth=0
+autocmd BufReadPost,BufWritePost *.md set wrapmargin=0
+
+" word wrap for *.Rmd
+autocmd BufReadPost,BufWritePost *.Rmd set wrap linebreak nolist 
+autocmd BufReadPost,BufWritePost *.Rmd set textwidth=0
+autocmd BufReadPost,BufWritePost *.Rmd set wrapmargin=0
+
 
 " settings for R
 "" run R script
@@ -251,6 +260,12 @@ autocmd BufReadPost,BufWritePost *.R nmap <Leader>b :w<CR>:!R --no-save < %<CR>
 "" no word wrap
 autocmd BufReadPost,BufWritePost *.R set nowrap
 
+" settings for C++, C, SystemC
+"" disabled because of performance issues
+"let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+let g:syntastic_cpp_include_dirs = ['/usr/local/include']
+let g:syntastic_cpp_check_header = 1
 
 " sql commands
 " inoremap <C-c> <ESC>
