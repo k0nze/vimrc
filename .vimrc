@@ -62,11 +62,11 @@ set bs=2
 
 
 " unbind the cursor keys in insert, normal and visual modes
-for prefix in ['i', 'n', 'v']
-  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-    exe prefix . "noremap " . key . " <Nop>"
-  endfor
-endfor
+"for prefix in ['i', 'n', 'v']
+"  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+"    exe prefix . "noremap " . key . " <Nop>"
+"  endfor
+"endfor
 
 
 " search
@@ -253,6 +253,10 @@ autocmd BufReadPost,BufWritePost *.Rmd set textwidth=0
 autocmd BufReadPost,BufWritePost *.Rmd set wrapmargin=0
 
 
+" prolog
+autocmd BufReadPost,BufWritePost set filetype="prolog"
+
+
 " settings for R
 "" run R script
 autocmd BufReadPost,BufWritePost *.R nmap <Leader>b :w<CR>:!R --no-save < %<CR>
@@ -266,6 +270,8 @@ autocmd BufReadPost,BufWritePost *.R set nowrap
 let g:syntastic_enable_signs=1
 let g:syntastic_cpp_include_dirs = ['/usr/local/include']
 let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_compiler = 'gcc-5'
+let g:syntastic_c_compiler = 'gcc-5'
 
 " sql commands
 " inoremap <C-c> <ESC>
