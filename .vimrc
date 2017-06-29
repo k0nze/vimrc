@@ -4,6 +4,9 @@ autocmd! bufwritepost .vimrc source %
 " enable mouse
 set mouse=a
 
+" disable bell
+set visualbell t_vb=
+
 " VBundle
 set nocompatible 
 filetype off 
@@ -35,6 +38,10 @@ Plugin 'LaTeX-Box-Team/LaTeX-Box'
 "" git clone git://github.com/shawncplus/phpcomplete.vim.git
 Plugin 'shawncplus/phpcomplete.vim'
 "autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+
+" plugin ConqueTerm
+"" https://github.com/pthrasher/conqueterm-vim
+Plugin 'pthrasher/conqueterm-vim'
 
 "" All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -150,7 +157,7 @@ syntax on
 "" mkdir -p ~/.vim/colors && cd ~/.vim/colors
 "" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
 "set t_Co=256
-let g:solarized_termcolors=256
+let g:solarized_termcolors=16
 "color smyck
 "color wombat256mod
 "colorscheme candystripe
@@ -208,10 +215,6 @@ autocmd FileType html setlocal indentkeys-=*<Return>
 autocmd BufNewFile,BufReadPost *.jq set syntax=javascript
 autocmd BufNewFile,BufReadPost *.jqy set syntax=javascript
 
-" LISA
-"" set C syntax hightlight for *.lisa
-autocmd BufNewFile,BufReadPost *.lisa set syntax=lisa
-
 " Verilog
 "" abbreviation for block comment
 "iab /*--- /* -------------------------------------------------------------------------<Esc>:set paste<CR>m`o<Esc>``:set nopaste<CR>i
@@ -222,8 +225,8 @@ autocmd BufReadPost,BufWritePost *.txt set wrap linebreak nolist
 
 " settings an commands for tex
 "" build and show pdf
-autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && unset PDF<CR>
-autocmd BufReadPost,BufWritePost *.tex nmap <Leader>v :w<CR>:!PDF="%<.pdf" && "/usr/texbin/xelatex" -synctex=1 -interaction=nonstopmode "%" && unset PDF<CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>b :w<CR>:!PDF="%<.pdf" && "/Library/TeX/texbin/pdflatex" -synctex=1 -interaction=nonstopmode "%" && unset PDF<CR>
+autocmd BufReadPost,BufWritePost *.tex nmap <Leader>v :w<CR>:!PDF="%<.pdf" && "/Library/TeX/texbin/xelatex" -synctex=1 -interaction=nonstopmode "%" && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex nmap <Leader>c :w<CR>:!PDF="%<.pdf" && make && unset PDF<CR>
 autocmd BufReadPost,BufWritePost *.tex set omnifunc=LatexBox_Complete
 let g:LatexBox_complete_inlineMath = 1
@@ -233,11 +236,6 @@ autocmd BufNewFile,BufReadPost *.tex iab \begin{tabular} \begin{tabular}{•}<Es
 autocmd BufNewFile,BufReadPost *.tex iab \begin{center} \begin{center}<Esc>m`o\end{center}<Esc>k$a
 autocmd BufNewFile,BufReadPost *.tex iab \begin{itemize} \begin{itemize}<Esc>m`o\end{itemize}<Esc>k$a
 autocmd BufNewFile,BufReadPost *.tex iab \begin{enumerate} \begin{enumerate}<Esc>m`o\end{enumerate}<Esc>k$a
-
-
-" bachelorarbeit
-autocmd BufReadPost,BufWritePost {bachelorarbeit,sec*}.tex nmap <Leader>v :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss /ge<CR>:w<CR>:set ignorecase<CR>:!"/usr/texbin/pdflatex" -synctex=1 -interaction=nonstopmode bachelorarbeit<CR>
-autocmd BufReadPost,BufWritePost {bachelorarbeit,sec*}.tex nmap <Leader>c :set noignorecase<CR>:%s/ä/"a/ge<CR>:%s/ö/"o/ge<CR>:%s/ü/"u/ge<CR>:%s/Ä/"A/ge<CR>:%s/Ö/"O/ge<CR>:%s/Ü/"U/ge<CR>:%s/ß/\\ss /ge<CR>:w<CR>:set ignorecase<CR>:!make<CR>
 
 "" word wrap
 autocmd BufReadPost,BufWritePost *.tex set wrap linebreak nolist 
@@ -251,10 +249,6 @@ autocmd BufReadPost,BufWritePost *.md set wrapmargin=0
 autocmd BufReadPost,BufWritePost *.Rmd set wrap linebreak nolist 
 autocmd BufReadPost,BufWritePost *.Rmd set textwidth=0
 autocmd BufReadPost,BufWritePost *.Rmd set wrapmargin=0
-
-
-" prolog
-autocmd BufReadPost,BufWritePost set filetype="prolog"
 
 
 " settings for R
@@ -331,4 +325,7 @@ augroup resCur
 	autocmd!
 	autocmd BufWinEnter * call ResCur()
 augroup END
+
+" set font for GVIM / XVIM / MacVIM
+set guifont=Droid\ Sans\ Mono\ for\ Powerline:h12
 
