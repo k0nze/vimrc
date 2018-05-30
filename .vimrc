@@ -79,6 +79,13 @@ set autoindent
 set cindent
 
 
+" reload files on external changes
+au CursorHold,CursorHoldI * checktime
+set updatetime=500
+" au FocusGained,BufEnter * :checktime
+
+
+
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
