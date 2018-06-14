@@ -130,7 +130,7 @@ nmap <Leader>m :tabnext<CR>
 "" open a new tab and open NERDtree in it
 nmap <Leader>e :tabnew<CR>:NERDTree<CR>
 "" open NERDTree on vim startup
-autocmd VimEnter * NERDTree
+"autocmd VimEnter * NERDTree
 
 
 " unbind the cursor keys in insert, normal and visual modes
